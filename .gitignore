@@ -1,0 +1,29 @@
+# AI assistant / agent artifacts (keep out of the public release)
+CLAUDE.md
+CLAUDE.local.md
+**/CLAUDE.md
+.claude/
+AGENTS.md
+GEMINI.md
+.cursor/
+.cursorrules
+
+# macOS / editor cruft
+.DS_Store
+*.swp
+*~
+.idea/
+.vscode/
+
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.eggs/
+build/
+dist/
+*.so
+.ipynb_checkpoints/
+.venv/
+venv/
+env/
