@@ -22,9 +22,7 @@
 
 ## 🚧 Code Coming Soon
 
-The official implementation of **Multi4D** will be released in this repository. The paper will appear at **ECCV 2026**.
-
-⭐ **Star** and **watch** this repo to be notified when the code drops.
+The official implementation of **Multi4D**(coming soon)
 
 ---
 
