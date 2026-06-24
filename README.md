@@ -10,7 +10,7 @@
 
 [![Project Page](https://img.shields.io/badge/🌐_Project_Page-Multi4D-1a73e8?style=for-the-badge)](https://batfacewayne.github.io/Multi4D.io/)
 [![Video](https://img.shields.io/badge/▶_Video-YouTube-FF0000?style=for-the-badge)](https://youtu.be/C-VxfkfFk-g)
-![Paper](https://img.shields.io/badge/📄_Paper-Coming_Soon-9e9e9e?style=for-the-badge)
+[![arXiv](https://img.shields.io/badge/arXiv-2606.22197-b31b1b?style=for-the-badge)](https://arxiv.org/abs/2606.22197)
 
 <img src="assets/teaser.jpg" width="100%">
 
@@ -40,12 +40,24 @@ Multi4D decomposes a dynamic scene into three functionally specialized Gaussian 
 
 - 🌐 **Project page:** https://batfacewayne.github.io/Multi4D.io/
 - ▶ **Overview video:** https://youtu.be/C-VxfkfFk-g
-- 📄 **Paper:** coming soon (ECCV 2026)
+- 📄 **Paper (arXiv):** https://arxiv.org/abs/2606.22197
 
 ## Citation
 
-The paper will appear at **ECCV 2026** — BibTeX coming soon.
+If you find Multi4D useful, please consider citing:
+
+```bibtex
+@misc{wang2026multi4d,
+  title={Multi4D: High-Fidelity Dynamic Gaussian Splatting via Multi-Level Competitive Allocation},
+  author={Rui Wang and Quentin Lohmeyer and Siyu Tang and Mirko Meboldt},
+  year={2026},
+  eprint={2606.22197},
+  archivePrefix={arXiv},
+  primaryClass={cs.CV},
+  url={https://arxiv.org/abs/2606.22197}
+}
+```
 
 ## License
 
-To be released together with the code.
+This project is released under the [GNU GPL-3.0](LICENSE) license.
