@@ -257,6 +257,8 @@ scene/                    Gaussian branches, deformation field, HexPlane, data l
 gaussian_renderer/        the unified rasterization pass
 utils/                    losses, evaluation (PSNR/SSIM/LPIPS), geometry helpers
 submodules/               CUDA rasterizer + kNN (pip-installed)
+diff_gaussian_rasterization_hybrid/
+                          hybrid rasterizer, JIT-compiled on first import
 ext/                      GroundedSAM helper for the segmentation stage
 ```
 
