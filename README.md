@@ -260,6 +260,29 @@ submodules/               CUDA rasterizer + kNN (pip-installed)
 ext/                      GroundedSAM helper for the segmentation stage
 ```
 
+## Acknowledgements
+
+This work builds directly on two codebases, and we thank their authors for
+releasing them:
+
+- **[DeGauss](https://github.com/BatFaceWayne/DeGauss)** — the dynamic–static
+  Gaussian decomposition this reconstruction pipeline grew out of, and the Neu3D
+  data preparation we follow.
+- **[TRASE](https://github.com/yunjinli/TRASE)** — the tracking-free 4D
+  segmentation method our semantic stage implements: the soft-mined contrastive
+  objective over SAM masks, the mask-supervision format, and the
+  [Mask-Benchmark](https://huggingface.co/datasets/yunjinli/Mask-Benchmark) we
+  evaluate against.
+
+We also make use of
+[4DGaussians](https://github.com/hustvl/4DGaussians),
+[SpacetimeGaussians](https://github.com/oppo-us-research/SpacetimeGaussians)
+(Technicolor preprocessing and protocol),
+[Gaussian Grouping](https://github.com/lkeab/gaussian-grouping) (the GroundedSAM
+helper in `ext/`), and the original
+[3D Gaussian Splatting](https://github.com/graphdeco-inria/gaussian-splatting)
+rasterizer and kNN modules.
+
 ## Citation
 
 If you find Multi4D useful, please consider citing:
