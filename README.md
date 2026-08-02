@@ -258,7 +258,6 @@ gaussian_renderer/        the unified rasterization pass
 utils/                    losses, evaluation (PSNR/SSIM/LPIPS), geometry helpers
 submodules/               CUDA rasterizer + kNN (pip-installed)
 ext/                      GroundedSAM helper for the segmentation stage
-scripts/                  cluster job scripts (written for SLURM; adapt to your setup)
 ```
 
 ## Citation

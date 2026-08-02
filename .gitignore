@@ -47,4 +47,3 @@ results/
 # Debug-rasterizer crash snapshots (written by the debug path on CUDA errors)
 snapshot_fw.dump
 snapshot_bw.dump
-scripts/env.local.sh
