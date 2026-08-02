@@ -161,7 +161,11 @@ Outputs: the best-PSNR checkpoint is kept in `<model_path>/point_cloud/best/`
 came from), alongside the final `iteration_<N>/`. Renders and `debug_metrics.json` go
 to `--saving_folder`, which defaults to `./results/`.
 
-<details> <summary><h2>4D Segmentation</h2></summary>
+## 4D Segmentation
+
+<details>
+<summary><b>Click to expand — optional stage, not needed for reconstruction</b></summary>
+<br>
 
 After reconstruction the persistent subset is frozen and semantic features are
 distilled onto it, then queried by text.
