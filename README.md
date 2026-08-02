@@ -262,6 +262,9 @@ ext/                      GroundedSAM helper for the segmentation stage
 
 ## Acknowledgements
 
+We thank the authors of the following works for releasing their code, which this
+project builds on:
+
 - [DeGauss: Dynamic-Static Decomposition with Gaussian Splatting for Distractor-free 3D Reconstruction](https://github.com/BatFaceWayne/DeGauss)
 - [TRASE: Tracking-free 4D Segmentation and Editing](https://github.com/yunjinli/TRASE)
 - [Hybrid 3D-4D Gaussian Splatting for Fast Dynamic Scene Representation](https://github.com/ohsngjun/3D-4DGS)
