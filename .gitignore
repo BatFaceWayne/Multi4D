@@ -8,22 +8,43 @@ GEMINI.md
 .cursor/
 .cursorrules
 
-# macOS / editor cruft
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.eggs/
+dist/
+pythonProject/
+.ipynb_checkpoints/
+.venv/
+env/
+venv/
+
+# CUDA / extension build artifacts (rebuild via pip install -e on each submodule)
+build/
+*.so
+*.o
+
+# Training outputs / logs (redirected to scratch; never committed)
+logs/
+output/
+test/
+results/
+
+# Large binaries
+*.ply
+*.pth
+*.ckpt
+*.npz
+
+# OS / IDE
 .DS_Store
 *.swp
 *~
 .idea/
 .vscode/
 
-# Python
-__pycache__/
-*.py[cod]
-*.egg-info/
-.eggs/
-build/
-dist/
-*.so
-.ipynb_checkpoints/
-.venv/
-venv/
-env/
+# Debug-rasterizer crash snapshots (written by the debug path on CUDA errors)
+snapshot_fw.dump
+snapshot_bw.dump
+scripts/env.local.sh

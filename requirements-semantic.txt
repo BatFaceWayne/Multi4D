@@ -1,0 +1,27 @@
+# Extra dependencies for the OPTIONAL semantic-segmentation stage (TRASE):
+#   train_semantic.py, render_cluster_by_text.py, cluster_semantic_features.py,
+#   render_semantic_features.py, eval_seg.py.
+# Install on top of requirements.txt, into the same environment.
+#
+# pytorch3d (KNN) is deliberately NOT listed here: it has no PyPI release and
+# FAIR's prebuilt wheel index is no longer public, so `pip install pytorch3d`
+# fails and takes the whole requirements file down with it. Build it from
+# source instead -- see the 4D Segmentation section of the README.
+
+numpy<2                # repeated from requirements.txt: several deps below
+                       # otherwise pull numpy 2.x and break mmcv 1.6.0's ABI
+hdbscan
+psutil
+bitarray               # TRASE stores its SAM masks bit-packed; torch.load of a
+                       # mask .pt unpickles a bitarray and fails without this
+huggingface_hub
+segment-anything
+groundingdino-py
+transformers==4.44.2   # pinned: transformers 5.x breaks GroundingDINO's BertModel import
+supervision<0.22       # pinned: 0.22 removed the labels= kwarg that groundingdino's annotate() needs
+opencv-python-headless<5  # supervision pulls this in; 5.x demands numpy>=2, which
+                          # would make pip backtrack supervision down to 0.6
+
+# Runtime assets (not pip-installable):
+#   - SAM checkpoint  -> place at dependency/sam_vit_h_4b8939.pth
+#   - GroundingDINO   -> weights auto-download from HuggingFace (ShilongLiu/GroundingDINO)

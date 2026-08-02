@@ -1,0 +1,12 @@
+torch #### install torch that suits your environment
+torchvision
+mmcv==1.6.0
+matplotlib
+numpy<2          # mmcv 1.6.0 is built against the numpy 1.x ABI
+tqdm
+lpips
+plyfile
+natsort
+opencv-python
+scikit-image
+ninja            # needed to JIT-compile the hybrid rasterizer on first import
