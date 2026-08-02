@@ -4,7 +4,7 @@
 
 ### ECCV 2026
 
-[Rui Wang](https://pdz.ethz.ch/the-group/people/rui-wang.html) · [Quentin Lohmeyer](https://pdz.ethz.ch/the-group/people/lohmeyer.html) · [Siyu Tang](https://vlg.inf.ethz.ch/team/Prof-Dr-Siyu-Tang.html) · [Mirko Meboldt](https://pdz.ethz.ch/the-group/people/meboldt.html)
+[Rui Wang](https://batfacewayne.github.io/ruiwang/) · [Quentin Lohmeyer](https://pdz.ethz.ch/the-group/people/lohmeyer.html) · [Siyu Tang](https://vlg.inf.ethz.ch/team/Prof-Dr-Siyu-Tang.html) · [Mirko Meboldt](https://pdz.ethz.ch/the-group/people/meboldt.html)
 
 **ETH Zürich**
 
