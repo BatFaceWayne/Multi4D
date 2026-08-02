@@ -37,9 +37,6 @@ def render_semantic_set(model_path, name, iteration, views, foreground_gaussians
             vis_image = (vis_image - vis_image.min()) / (vis_image.max() - vis_image.min() + 1e-9)
             
             torchvision.utils.save_image(vis_image, os.path.join(render_path, '{0:05d}'.format(idx) + ".png"))
-            
-            # Optional: Save full tensor?
-            # torch.save(ren.cpu(), os.path.join(render_path, '{0:05d}'.format(idx) + ".pt"))
 
 def render_sets(dataset, hypernetwork, iteration, pipeline, opt, skip_train, skip_test, load_path, args):
     with torch.no_grad():
@@ -81,12 +78,8 @@ def render_sets(dataset, hypernetwork, iteration, pipeline, opt, skip_train, ski
                          foreground_gaussians._deformation.load_state_dict(deform_state)
                          foreground_gaussians._deformation.to("cuda")
 
-        # LOAD SEMANTIC FEATURES
-        # Expected location: dataset.model_path / expname / {foreground,background}_semantics.pt
-        # But args.saving_folder is where we saved it.
-        # Check args for semantic path or infer?
-        # User requested: "load the features ... and render"
-        # We assume they are in args.saving_folder/args.expname
+        # Load the semantic features from where train_semantic.py saved them:
+        # args.saving_folder/args.expname/{foreground,background}_semantics.pt
         
         semantic_load_dir = os.path.join(args.saving_folder, args.expname)
         print(f"Loading Semantic Features from {semantic_load_dir}...")

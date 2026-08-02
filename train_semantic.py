@@ -54,11 +54,7 @@ def smooth_semantics(xyz, features, K=16, precomputed_idx=None):
             knn_res = ops.knn_points(xyz.unsqueeze(0), xyz.unsqueeze(0), K=K)
             idx = knn_res.idx.squeeze(0) # (N, K)
     
-    # Gather neighbors
-    # features: (N, C)
-    # neighbor_feats: (N, K, C)
-    # efficient gather? 
-    # normed_features[idx] -> (N, K, C)
+    # Gather neighbors: features (N, C), normed_features[idx] -> (N, K, C)
     neighbor_feats = normed_features[idx]
     
     # Mean
@@ -67,13 +63,9 @@ def smooth_semantics(xyz, features, K=16, precomputed_idx=None):
     # Default dropout is 0.5 in TRASE rendering
     dropout = 0.5
     if dropout > 0 and dropout < 1:
-        # Select random subset of neighbors
-        # For efficiency, TRASE does: select_point = torch.randperm(K)[:int(K*dropout)]
-        # This selects the SAME subset of neighbor indices for ALL points?
-        # TRASE code:
-        # select_point = torch.randperm(K)[ : int(K*dropout)]
-        # select_idx = self.feature_smooth_map["m"][:, select_point]
-        # So yes, it selects the same 'k-th' neighbors for all points. e.g. always the 1st, 3rd, 5th nearest neighbor.
+        # Random neighbor subset, as in TRASE: one permutation of the K slots is
+        # drawn per call and shared by every point, i.e. all points keep the same
+        # k-th nearest neighbors (e.g. always the 1st, 3rd, 5th).
         
         num_sel = int(K * dropout)
         if num_sel > 0:
@@ -134,8 +126,6 @@ def training(dataset, opt, pipe, hyper, args):
         print("Initializing Semantic Features...")
         semantic_dim = args.semantic_dim
         
-        # Initialize semantics (random init?)
-        # TRASE uses standard parameter init. 
         # Foreground
         num_fg = foreground_gaussians.get_xyz.shape[0]
         # TRASE uses RGB2SH(torch.rand), effectively centered uniform scaled by 1/C0
@@ -245,7 +235,7 @@ def training(dataset, opt, pipe, hyper, args):
                  if isinstance(masks_pkg, dict) and 'masks' in masks_pkg:
                      sam_masks = torch.from_numpy(np.array(masks_pkg['masks'].tolist())).reshape(masks_pkg['N'], masks_pkg['H'], masks_pkg['W']).cuda()
                  else:
-                     # Direct tensor?
+                     # plain tensor fallback
                      sam_masks = masks_pkg.cuda()
             else:
                  # Debug print only occasionally to avoid spam
@@ -349,10 +339,6 @@ def training(dataset, opt, pipe, hyper, args):
                 })
                 progress_bar.update(10)
 
-            # if iteration % 10 == 0:
-            #     progress_bar.set_postfix({"Loss": f"{ema_loss_for_log:.{7}f}"})
-            #     progress_bar.update(10)
-
             if iteration % 2000 == 0:
                 print(f"\n[Iter {iteration}] Saving semantic checkpoint...")
                 ckpt_dir = os.path.join(args.saving_folder, args.expname, f"semantic_iteration_{iteration}")
@@ -394,10 +380,9 @@ def training(dataset, opt, pipe, hyper, args):
                 os.makedirs(dump_path, exist_ok=True)
                 # Visualizing first 3 channels normalized
                 vis_image = rendered_features[:3].detach().cpu()
-                # Normalize for vis?
+                # min-max normalize for visualization
                 vis_image = (vis_image - vis_image.min()) / (vis_image.max() - vis_image.min() + 1e-9)
                 torchvision.utils.save_image(vis_image, os.path.join(dump_path, f"{iteration:05d}.png"))
-                # print(f"Iteration {iteration}: Loss {loss.item()}")
 
 def render_semantic(viewpoint_camera, pc_foreground, pc_background, pipe, bg_color, args):
     # render_direct Style Rendering for Semantics    

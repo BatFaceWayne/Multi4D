@@ -80,8 +80,6 @@ class ModelHiddenParams(ParamGroup):
         self.scale_rotation_pe = 2
         self.opacity_pe = 2
         self.timenet_width = 64
-        # self.timenet_width = 512
-        # self.timenet_output = 128
         self.timenet_output = 32
         self.bounds = 1.6
         self.plane_tv_weight = 0.0002
@@ -111,10 +109,9 @@ class ModelHiddenParams(ParamGroup):
         super().__init__(parser, "ModelHiddenParams")
 
 
-# NOTE: the values below ARE the shipped defaults — the former
-# arguments/video_dataset/default.py was merged in here (2026-07-30), so there is
-# exactly one place to read a default from. The 4 dataset configs in arguments/
-# override only what they actually change.
+# NOTE: the values below ARE the shipped defaults — there is exactly one place
+# to read a default from. The 4 dataset configs in arguments/ override only what
+# they actually change.
 class OptimizationParams(ParamGroup):
     def __init__(self, parser):
         self.iterations = 20_000

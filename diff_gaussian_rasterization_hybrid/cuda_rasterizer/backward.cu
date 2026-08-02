@@ -1297,17 +1297,9 @@ __global__ void PerGaussianRenderCUDA(
     dL_invdepth = my_warp.shfl_up(dL_invdepth, 1);
     dL_depth = my_warp.shfl_up(dL_depth, 1);
     dL_mask = my_warp.shfl_up(dL_mask, 1);
-    // Note: dL_depth_4d/3d are not part of the standard shuffle chain?
-    // Wait, they are inside local variables but updated only by thread 0?
-    // The loop logic (lines 1376+) re-reads from memory for thread 0.
-    // But for subsequent threads in warp?
-    // The shuffling lines 1353-1364 propagate values.
-    // I must add them to shuffle if they are needed by other threads.
-    // The previous logic for dL_dpixel_4d and 3d (lines 1392+) reads them
-    // inside the loop? Ah, lines 1392-1404 re-read dL_dpix_4d/3d for ALL
-    // threads if valid_pixel. So I don't need to shuffle them if I read them
-    // like that. Let's check where dL_depth_4d is used. It will be used in the
-    // loop below. I'll adopt the same pattern as dL_dpix_4d: read per pixel.
+    // dL_depth_4d/3d are deliberately NOT in this shuffle chain: like
+    // dL_dpixel_4d/3d, every thread re-reads them per pixel below, so
+    // propagating them along the warp would be redundant.
 
     // which pixel index should this thread deal with?
     int idx = i - my_warp.thread_rank();
@@ -1317,7 +1309,6 @@ __global__ void PerGaussianRenderCUDA(
     bool valid_pixel = pix.x < W && pix.y < H;
 
     // every 32nd thread should read the stored state from memory
-    // TODO: perhaps store these things in shared memory?
     float dL_dpixel_4d[C] = {0.0f};
     float dL_dpixel_3d[C] = {0.0f};
     float dL_depth_4d = 0.0f;
@@ -1390,7 +1381,7 @@ __global__ void PerGaussianRenderCUDA(
       float dL_dalpha = 0.0f;
       const bool is_4d = (gaussian_idx < P);
       for (int ch = 0; ch < C; ++ch) {
-        ar[ch] += weight * c[ch]; // TODO: check
+        ar[ch] += weight * c[ch];
         // Use combined gradient for main output, separate gradients for 4D/3D
         const float &dL_dchannel = dL_dpixel[ch];
         const float &dL_dchannel_4d =

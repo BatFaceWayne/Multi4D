@@ -21,7 +21,7 @@ def render_rgb(viewpoint_camera, pc_foreground, pc_background, pipe, bg_color, m
     Render RGB image with optional masks for foreground and background.
     """
     # 1. Deform Foreground
-    # We assume 'time' is needed if deformation exists
+    # the deformation field is queried per-timestamp
     time = torch.tensor(viewpoint_camera.time).to(pc_foreground.get_xyz.device).repeat(pc_foreground.get_xyz.shape[0], 1)
     
     means3D_fg, scales_fg, rotations_fg, opacity_fg, shs_fg = pc_foreground._deformation(
@@ -191,11 +191,7 @@ def cluster_semantic_features(dataset, hypernetwork, iteration, pipeline, opt, a
         fg_feats = foreground_gaussians.semantic_feature if has_fg else torch.empty(0, feat_dim, device="cuda")
         bg_feats = background_gaussians.semantic_feature if has_bg else torch.empty(0, feat_dim, device="cuda")
         
-        # Ensure dimensions match (they should be N x FeatureDim)
-        # render_semantic_features says they are saved as parameters, so likely already N x C or N x C x 1
-        # gui_standalone.py DBSCAN usage:
-        # point_features = self.gaussians.get_gaussian_features.squeeze(1)
-        # normed_point_features = torch.nn.functional.normalize(point_features, dim = -1, p = 2)
+        # Features are saved as (N, C) or (N, 1, C); squeeze to (N, C).
         
         if has_fg and len(fg_feats.shape) == 3:
              fg_feats = fg_feats.squeeze(1)
@@ -212,7 +208,7 @@ def cluster_semantic_features(dataset, hypernetwork, iteration, pipeline, opt, a
         # DBSCAN Clustering
         print("Running DBSCAN Clustering on Combined Features...")
         
-        # Parameters (from gui_standalone.py or custom)
+        # Cluster on a 2% sample, then assign every point to the nearest centre.
         percent = 0.02 # Sample 2% for training
         
         normed_point_features = torch.nn.functional.normalize(all_feats, dim = -1, p = 2)
@@ -289,7 +285,7 @@ def cluster_semantic_features(dataset, hypernetwork, iteration, pipeline, opt, a
                     mask_fg = torch.tensor(ids_fg == cid, device="cuda") if has_fg else None
                     mask_bg = torch.tensor(ids_bg == cid, device="cuda") if has_bg else None
                     
-                    # Optimization: Skip if cluster has < X points?
+                    # skip empty clusters
                     cnt = 0
                     if mask_fg is not None: cnt += mask_fg.sum().item()
                     if mask_bg is not None: cnt += mask_bg.sum().item()
