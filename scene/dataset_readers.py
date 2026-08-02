@@ -151,10 +151,10 @@ def readdynerfInfo(datadir, use_sky_pc_arg=False):
     if sky_pc is not None:
         xyz = np.vstack((xyz_copy_ori, sky_pc))
 
-    # KNOWN ARTIFACT — do NOT "fix" without re-validating hard-scene numbers:
+    # KNOWN ARTIFACT — do NOT "fix" without re-validating the wild-scene numbers:
     # fetchPly already divided colors by 255, so this second /255 double-divides.
     # Real BG points therefore initialize near-black, while sky points (use_sky_pc)
-    # get random [0,1) DC. The e308_sky_deform golden-config behavior depends on this.
+    # get random [0,1) DC. The released dynerf_w results depend on this behavior.
     shs_base = pcd.colors / 255
     if not use_sky_pc:
         shs = shs_base
