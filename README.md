@@ -59,17 +59,13 @@ pip install --no-build-isolation submodules/diff-gaussian-rasterization
 pip install --no-build-isolation submodules/simple-knn
 ```
 
-`numpy<2` is pinned in `requirements.txt`: mmcv 1.6.0 is built against the numpy
-1.x ABI and segfaults or fails to import under numpy 2.
-
-The hybrid rasterizer is **JIT-compiled on first import** — no install step, but
-the first run needs `nvcc` and a GPU, and takes a few minutes.
+Two things to expect: `numpy<2` is pinned in `requirements.txt` because mmcv 1.6.0
+is built against the numpy 1.x ABI, and the hybrid rasterizer is JIT-compiled on
+first import, so the first run takes a few extra minutes on a GPU.
 
 Verified from scratch on Python 3.11.6, torch 2.5.1+cu121, numpy 1.26.4,
-mmcv 1.6.0, CUDA 12.1.
-
-The optional 4D-segmentation stage needs more packages — see
-[4D Segmentation](#4d-segmentation). Reconstruction does not require them.
+mmcv 1.6.0, CUDA 12.1. The optional 4D-segmentation stage needs extra packages,
+installed in its own section below.
 
 ## Data
 
