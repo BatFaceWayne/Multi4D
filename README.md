@@ -10,6 +10,7 @@
 
 [![Project Page](https://img.shields.io/badge/🌐_Project_Page-Multi4D-1a73e8?style=for-the-badge)](https://batfacewayne.github.io/Multi4D.io/)
 [![Video](https://img.shields.io/badge/▶_Video-YouTube-FF0000?style=for-the-badge)](https://youtu.be/C-VxfkfFk-g)
+[![Paper](https://img.shields.io/badge/📄_Paper-ECCV_2026-004b87?style=for-the-badge)](https://link.springer.com/chapter/10.1007/978-3-032-37531-5_28)
 [![arXiv](https://img.shields.io/badge/arXiv-2606.22197-b31b1b?style=for-the-badge)](https://arxiv.org/abs/2606.22197)
 
 <img src="assets/teaser.jpg" width="100%">
@@ -282,14 +283,22 @@ project builds on:
 If you find Multi4D useful, please consider citing:
 
 ```bibtex
-@misc{wang2026multi4d,
+@inproceedings{wang2026multi4d,
   title={Multi4D: High-Fidelity Dynamic Gaussian Splatting via Multi-Level Competitive Allocation},
-  author={Rui Wang and Quentin Lohmeyer and Siyu Tang and Mirko Meboldt},
+  author={Wang, Rui and Lohmeyer, Quentin and Tang, Siyu and Meboldt, Mirko},
+  booktitle={European Conference on Computer Vision},
+  pages={502--519},
   year={2026},
-  eprint={2606.22197},
-  archivePrefix={arXiv},
-  primaryClass={cs.CV},
-  url={https://arxiv.org/abs/2606.22197}
+  organization={Springer}
+}
+
+@inproceedings{wang2025degauss,
+  title={Degauss: Dynamic-static decomposition with gaussian splatting for distractor-free 3d reconstruction},
+  author={Wang, Rui and Lohmeyer, Quentin and Meboldt, Mirko and Tang, Siyu},
+  booktitle={2025 IEEE/CVF International Conference on Computer Vision (ICCV)},
+  pages={6294--6303},
+  year={2025},
+  organization={IEEE}
 }
 ```
 
